@@ -2,6 +2,9 @@
 {% block title %}Food List{% endblock %}
 {% block menu %}
     <li class="nav-item">
+        <a href="{% url 'order_list' %}" class="nav-link">Orders</a>
+    </li>
+    <li class="nav-item">
         <a href="{% url 'employee_list' %}" class="nav-link">Employees</a>
     </li>
 {% endblock %}

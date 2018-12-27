@@ -15,3 +15,8 @@ class EmployeeListView(ListView):
     model = Employee
     template_name = 'employee_list.html'
 
+
+class OrderListView(ListView):
+    model = Order
+    template_name = 'order_list.html'
+

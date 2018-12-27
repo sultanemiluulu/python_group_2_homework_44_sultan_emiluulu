@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Order List{% endblock %}
+{% block content %}
+    <div class="row">
+        {% for order in order_list %}
+            <div class="col-md-4">
+                <div class="card mt-4" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Order Number: {{ order.pk }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ order.contact_phone }}</h6>
+                        <p class="card-text"></p>
+                        <p>Status: {{ order.status }}</p>
+                        <a href="{% url 'order_detail' order.pk %}" class="card-link">See more</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
