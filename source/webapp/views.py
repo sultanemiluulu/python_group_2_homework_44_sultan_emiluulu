@@ -39,7 +39,7 @@ class FoodDeleteView(DeleteView):
     template_name = 'food_delete.html'
 
     def get_success_url(self):
-        return reverse('food_list', kwargs={'pk': self.object.pk})
+        return reverse('food_list')
 
 
 class EmployeeListView(ListView):
