@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Delete Food{% endblock %}
+{% block content %}
+    <h2>Are you sure?</h2>
+    <form action="{% url 'food_delete' food.pk %}" method="post">
+        {% csrf_token %}
+        <input type="radio" value="yes" name="delete"> Yes<br>
+        <input type="radio" value="no" name="delete" checked> No<br>
+        <input type="submit" value="OK">
+    </form>
+{% endblock %}

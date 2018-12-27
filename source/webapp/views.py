@@ -11,6 +11,37 @@ class FoodListView(ListView):
     template_name = 'food_list.html'
 
 
+class FoodDetailView(DetailView):
+    model = Food
+    template_name = 'food_detail.html'
+
+
+class FoodCreateView(CreateView):
+    model = Food
+    template_name = 'food_create.html'
+    form_class = FoodForm
+
+    def get_success_url(self):
+        return reverse('food_detail', kwargs={'pk': self.object.pk})
+
+
+class FoodUpdateView(UpdateView):
+    model = Food
+    template_name = 'food_update.html'
+    form_class = FoodForm
+
+    def get_success_url(self):
+        return reverse('food_detail', kwargs={'pk': self.object.pk})
+
+
+class FoodDeleteView(DeleteView):
+    model = Food
+    template_name = 'food_delete.html'
+
+    def get_success_url(self):
+        return reverse('food_list')
+
+
 class EmployeeListView(ListView):
     model = Employee
     template_name = 'employee_list.html'
