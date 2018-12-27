@@ -7,3 +7,13 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
+
+
+class Food(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Name')
+    description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Description')
+    photo = models.ImageField(verbose_name='Image')
+    price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Price')
+
+    def __str__(self):
+        return self.name
