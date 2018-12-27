@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Food List{% endblock %}
+{% block menu %}
+    <li class="nav-item">
+        <a href="{% url 'employee_list' %}" class="nav-link">Employees</a>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        {% for food in food_list %}
+            <div class="col-md-4">
+                <div class="card mt-4" style="width: 18rem;" >
+                    <img class="card-img-top" src="{{ food.photo.url }}" alt="Card image cap" style="width: 286px; height: 180px">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ food.name }}</h5>
+                        <p class="card-text">{{ food.price }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %} %}

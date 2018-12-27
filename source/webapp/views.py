@@ -6,6 +6,11 @@ from webapp.models import Food, Order, OrderFood, Employee
 from webapp.forms import FoodForm, OrderForm, OrderFoodForm
 
 
+class FoodListView(ListView):
+    model = Food
+    template_name = 'food_list.html'
+
+
 class EmployeeListView(ListView):
     model = Employee
     template_name = 'employee_list.html'
