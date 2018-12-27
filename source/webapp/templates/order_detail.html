@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Order{% endblock %}
+{% block content %}
+    <div class="card text-center mt-5">
+        <div class="card-header">
+            {{ order.contact_phone }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Order List:</h5>
+            <ul class="list-group">
+                {% for order_food in order.foods.all %}
+                    <li class="list-group-item">{{ order_food.food.name }} : {{ order_food.amount }}</li>
+                {% endfor %}
+                <li class="list-group-item"><a href="{% url 'order_food_create' order.pk %}">Add Food</a></li>
+            </ul>
+            <p class="card-text mt-3">Name: {{ order.contact_name }}</p>
+            <p class="card-text">Address: {{ order.delivery_address }}</p>
+            <p>Status: {{ order.status }}</p>
+            <a href="{% url 'order_update' order.pk %}" class="btn btn-dark">Update</a>
+            {% if order.status == 'new' %}
+                <a href="{% url 'order_status' order.pk %}" class="btn btn-primary">Take Order</a>
+            {% elif order.status == 'preparing' %}
+                <a href="{% url 'order_status' order.pk %}" class="btn btn-primary">Order is preparing</a>
+            {% elif order.status == 'on_way' %}
+                <a href="{% url 'order_status' order.pk %}" class="btn btn-primary">Order on way</a>
+            {% elif order.status == 'delivered' %}<p class="btn btn-primary mb-0">Order delivered</p>
+            {% endif %}
+            {% if order.status == 'new' or order.status == 'preparing' %}
+                <a href="{% url 'order_reject' order.pk %}" class="btn btn-primary">Cancel Order</a>
+            {% elif order.status == 'on_way' or order.status == 'delivered' %}
+                <p class="btn btn-danger mb-0">Impossible to cancel</p>
+            {% endif %}
+            {% if order.status == 'canceled' %}
+                <p class="btn btn-danger mb-0">Canceled</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

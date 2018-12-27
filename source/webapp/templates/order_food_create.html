@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Food{% endblock %}
+
+{% block content %}
+    {% if order.status == 'delivered' or order.status == 'on_way' %}
+        {% include 'error.html' %}
+    {% else %}
+        <form action="{% url 'order_food_create' order.pk %}" method="post" class="mt-5 ml-5">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-dark">Save</button>
+        </form>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Order{% endblock %}
+{% block content %}
+    <form action="{% url 'order_create' %}" method="post" class="mt-4">
+        {% csrf_token %}
+        {{ formset.media }}
+        {{ form.as_p }}
+        {% for form in formset %}
+            <hr>
+            <div class="ml-5">
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-dark">Save</button>
+    </form>
+{% endblock %}

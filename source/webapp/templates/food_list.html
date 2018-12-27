@@ -7,6 +7,12 @@
     <li class="nav-item">
         <a href="{% url 'employee_list' %}" class="nav-link">Employees</a>
     </li>
+    <li class="nav-item">
+        <a href="{% url 'food_create' %}" class="nav-link">Create Food</a>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'order_create' %}" class="nav-link">Create Order</a>
+    </li>
 {% endblock %}
 {% block content %}
     <div class="row">
@@ -17,6 +23,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ food.name }}</h5>
                         <p class="card-text">{{ food.price }}</p>
+                        <a href="{% url 'food_detail' food.pk %}" class="btn btn-dark">See more</a>
                     </div>
                 </div>
             </div>
