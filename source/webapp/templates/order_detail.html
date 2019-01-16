@@ -9,28 +9,43 @@
             <h5 class="card-title">Order List:</h5>
             <ul class="list-group">
                 {% for order_food in order.foods.all %}
-                    <li class="list-group-item">{{ order_food.food.name }} : {{ order_food.amount }}</li>
+                    <li class="list-group-item">{{ order_food.food.name }} : {{ order_food.amount }}
+                        {% if perms.webapp.add_orderfood %}
+                        <a href="{% url 'webapp:order_food_delete' order_food.pk %}">Delete
+                        Food</a> / <a href="{% url 'webapp:order_food_update' order_food.pk %}">Update
+                        Food</a></li>
+                        {% endif %}
                 {% endfor %}
-                <li class="list-group-item"><a href="{% url 'order_food_create' order.pk %}">Add Food</a></li>
+                {% if perms.webapp.add_orderfood %}
+                <li class="list-group-item"><a href="{% url 'webapp:order_food_create' order.pk %}">Add Food</a></li>
+                {% endif %}
             </ul>
             <p class="card-text mt-3">Name: {{ order.contact_name }}</p>
             <p class="card-text">Address: {{ order.delivery_address }}</p>
-            <p>Status: {{ order.status }}</p>
-            <a href="{% url 'order_update' order.pk %}" class="btn btn-dark">Update</a>
-            {% if order.status == 'new' %}
-                <a href="{% url 'order_status' order.pk %}" class="btn btn-primary">Take Order</a>
-            {% elif order.status == 'preparing' %}
-                <a href="{% url 'order_status' order.pk %}" class="btn btn-primary">Order is preparing</a>
-            {% elif order.status == 'on_way' %}
-                <a href="{% url 'order_status' order.pk %}" class="btn btn-primary">Order on way</a>
-            {% elif order.status == 'delivered' %}<p class="btn btn-primary mb-0">Order delivered</p>
+            {% if order.courier %}
+                <p class="card-text">Courier: {{ order.courier }}</p>
             {% endif %}
-            {% if order.status == 'new' or order.status == 'preparing' %}
-                <a href="{% url 'order_reject' order.pk %}" class="btn btn-primary">Cancel Order</a>
-            {% elif order.status == 'on_way' or order.status == 'delivered' %}
+            <p class="card-text">Operator: {{ order.operator }}</p>
+            <p>Status: {{ order.status }}</p>
+            {% if perms.webapp.change_order %}
+                <a href="{% url 'webapp:order_update' order.pk %}" class="btn btn-dark">Update</a>
+            {% endif %}
+            {% if perms.webapp.can_take_order %}
+                {% if order.status == 'new' %}
+                    <a href="{% url 'webapp:order_status' order.pk %}" class="btn btn-primary">Take Order</a>
+                {% elif order.status == 'preparing' %}
+                    <a href="{% url 'webapp:order_status' order.pk %}" class="btn btn-primary">Order is preparing</a>
+                {% elif order.status == 'on_way' %}
+                    <a href="{% url 'webapp:order_status' order.pk %}" class="btn btn-primary">Order on way</a>
+                {% elif order.status == 'delivered' %}<p class="btn btn-primary mb-0">Order delivered</p>
+                {% endif %}
+            {% endif %}
+            {% if order.status == 'new' or order.status == 'preparing' and perms.webapp.reject_order %}
+                <a href="{% url 'webapp:order_reject' order.pk %}" class="btn btn-primary">Cancel Order</a>
+            {% elif order.status == 'on_way' or order.status == 'delivered' and perms.webapp.reject_order %}
                 <p class="btn btn-danger mb-0">Impossible to cancel</p>
             {% endif %}
-            {% if order.status == 'canceled' %}
+            {% if order.status == 'canceled' and perms.webapp.reject_order %}
                 <p class="btn btn-danger mb-0">Canceled</p>
             {% endif %}
         </div>

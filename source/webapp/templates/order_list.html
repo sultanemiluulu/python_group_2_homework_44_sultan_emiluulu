@@ -10,7 +10,7 @@
                         <h6 class="card-subtitle mb-2 text-muted">{{ order.contact_phone }}</h6>
                         <p class="card-text"></p>
                         <p>Status: {{ order.status }}</p>
-                        <a href="{% url 'order_detail' order.pk %}" class="card-link">See more</a>
+                        <a href="{% url 'webapp:order_detail' order.pk %}" class="card-link">See more</a>
                     </div>
                 </div>
             </div>

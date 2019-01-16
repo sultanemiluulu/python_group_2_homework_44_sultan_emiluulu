@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Add Order{% endblock %}
 {% block content %}
-    <form action="{% url 'order_create' %}" method="post" class="mt-4">
+    <form action="{% url 'webapp:order_create' %}" method="post" class="mt-4">
         {% csrf_token %}
         {{ formset.media }}
         {{ form.as_p }}

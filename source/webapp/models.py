@@ -44,6 +44,12 @@ class Order(models.Model):
     def __str__(self):
         return self.contact_phone
 
+    class Meta:
+        permissions = [
+            ('reject_order', 'Reject Order'),
+            ('can_take_order', 'Take Order'),
+        ]
+
 
 class OrderFood(models.Model):
     order = models.ForeignKey(Order, related_name='foods', verbose_name='Order', on_delete=models.PROTECT)

@@ -2,31 +2,31 @@
 {% block title %}Food List{% endblock %}
 {% block menu %}
     <li class="nav-item">
-        <a href="{% url 'order_list' %}" class="nav-link">Orders</a>
+        <a href="{% url 'webapp:order_list' %}" class="nav-link">Orders</a>
+    </li>
+    {% if perms.webapp.add_food and perms.webapp.add_order %}
+    <li class="nav-item">
+        <a href="{% url 'webapp:food_create' %}" class="nav-link">Create Food</a>
     </li>
     <li class="nav-item">
-        <a href="{% url 'employee_list' %}" class="nav-link">Employees</a>
+        <a href="{% url 'webapp:order_create' %}" class="nav-link">Create Order</a>
     </li>
-    <li class="nav-item">
-        <a href="{% url 'food_create' %}" class="nav-link">Create Food</a>
-    </li>
-    <li class="nav-item">
-        <a href="{% url 'order_create' %}" class="nav-link">Create Order</a>
-    </li>
+    {% endif %}
 {% endblock %}
 {% block content %}
-    <div class="row">
-        {% for food in food_list %}
-            <div class="col-md-4">
-                <div class="card mt-4" style="width: 18rem;" >
-                    <img class="card-img-top" src="{{ food.photo.url }}" alt="Card image cap" style="width: 286px; height: 180px">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ food.name }}</h5>
-                        <p class="card-text">{{ food.price }}</p>
-                        <a href="{% url 'food_detail' food.pk %}" class="btn btn-dark">See more</a>
+        <div class="row">
+            {% for food in food_list %}
+                <div class="col-md-4">
+                    <div class="card mt-4" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ food.photo.url }}" alt="Card image cap"
+                             style="width: 286px; height: 180px">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ food.name }}</h5>
+                            <p class="card-text">{{ food.price }}</p>
+                            <a href="{% url 'webapp:food_detail' food.pk %}" class="btn btn-dark">See more</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
 {% endblock %} %}
