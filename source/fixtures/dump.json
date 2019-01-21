@@ -1,0 +1,585 @@
+[
+{
+  "model": "webapp.food",
+  "pk": 5,
+  "fields": {
+    "name": "Pizza",
+    "description": "Best Pizza!",
+    "photo": "download_IWsjapE.jpeg",
+    "price": "420.80"
+  }
+},
+{
+  "model": "webapp.food",
+  "pk": 6,
+  "fields": {
+    "name": "Shashlik",
+    "description": "Awesome Shashlik!",
+    "photo": "shashlik_tBiCfAO.jpg",
+    "price": "200.00"
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 9,
+  "fields": {
+    "order": 5,
+    "food": 5,
+    "amount": 3
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 10,
+  "fields": {
+    "order": 5,
+    "food": 6,
+    "amount": 2
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 11,
+  "fields": {
+    "order": 6,
+    "food": 5,
+    "amount": 2
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 12,
+  "fields": {
+    "order": 7,
+    "food": 5,
+    "amount": 3
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 13,
+  "fields": {
+    "order": 7,
+    "food": 5,
+    "amount": 2
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 17,
+  "fields": {
+    "order": 9,
+    "food": 5,
+    "amount": 2
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 78,
+  "fields": {
+    "order": 10,
+    "food": 5,
+    "amount": 2
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 79,
+  "fields": {
+    "order": 10,
+    "food": 6,
+    "amount": 2
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 80,
+  "fields": {
+    "order": 10,
+    "food": 5,
+    "amount": 2
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 81,
+  "fields": {
+    "order": 10,
+    "food": 5,
+    "amount": 2
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 82,
+  "fields": {
+    "order": 10,
+    "food": 6,
+    "amount": 2
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 83,
+  "fields": {
+    "order": 10,
+    "food": 5,
+    "amount": 2
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 84,
+  "fields": {
+    "order": 10,
+    "food": 5,
+    "amount": 2
+  }
+},
+{
+  "model": "webapp.orderfood",
+  "pk": 85,
+  "fields": {
+    "order": 10,
+    "food": 5,
+    "amount": 2
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "Operators",
+    "permissions": [
+      [
+        "add_food",
+        "webapp",
+        "food"
+      ],
+      [
+        "change_food",
+        "webapp",
+        "food"
+      ],
+      [
+        "delete_food",
+        "webapp",
+        "food"
+      ],
+      [
+        "view_food",
+        "webapp",
+        "food"
+      ],
+      [
+        "add_order",
+        "webapp",
+        "order"
+      ],
+      [
+        "change_order",
+        "webapp",
+        "order"
+      ],
+      [
+        "delete_order",
+        "webapp",
+        "order"
+      ],
+      [
+        "reject_order",
+        "webapp",
+        "order"
+      ],
+      [
+        "view_order",
+        "webapp",
+        "order"
+      ],
+      [
+        "add_orderfood",
+        "webapp",
+        "orderfood"
+      ],
+      [
+        "change_orderfood",
+        "webapp",
+        "orderfood"
+      ],
+      [
+        "delete_orderfood",
+        "webapp",
+        "orderfood"
+      ],
+      [
+        "view_orderfood",
+        "webapp",
+        "orderfood"
+      ]
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 3,
+  "fields": {
+    "name": "Couriers",
+    "permissions": [
+      [
+        "view_food",
+        "webapp",
+        "food"
+      ],
+      [
+        "can_take_order",
+        "webapp",
+        "order"
+      ],
+      [
+        "reject_order",
+        "webapp",
+        "order"
+      ],
+      [
+        "view_order",
+        "webapp",
+        "order"
+      ]
+    ]
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$120000$oWj5kiYdEnlg$S3GKGcaQAWWizKJmDJ6TrynT8BDVeLVM8d04anet6dk=",
+    "last_login": "2019-01-20T12:56:38.209Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2018-12-27T07:02:05.982Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$120000$fZMh0jr0gmKI$6jVzqHAJDYF/QemyRqC4FJDmdFbfuvrpUIxyG9eb1A0=",
+    "last_login": "2019-01-16T15:17:01.153Z",
+    "is_superuser": false,
+    "username": "John",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2018-12-27T08:18:18Z",
+    "groups": [
+      [
+        "Couriers"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$120000$4GGKiHlgTbrE$2BSHqVYi90c3Dew4QHyrxTUn4Njy841cxB3dmRTrIw4=",
+    "last_login": "2019-01-16T15:22:24.249Z",
+    "is_superuser": false,
+    "username": "Alice",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2018-12-27T08:19:07Z",
+    "groups": [
+      [
+        "Operators"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$120000$jit0OYYGZpfr$SL1b8Cc/7AJvtAPY/XsQCXYjz2xU3sljAnaD9S9yNic=",
+    "last_login": "2019-01-16T15:26:59.702Z",
+    "is_superuser": false,
+    "username": "Doe",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-01-10T09:21:13Z",
+    "groups": [
+      [
+        "Couriers"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$120000$uJ8UYaHRvVWP$dHiCtvFApOXNjPfNXBBbHgL8QjFelISmWhCtBLZP/kA=",
+    "last_login": "2019-01-16T15:31:50.867Z",
+    "is_superuser": false,
+    "username": "Operator",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-01-16T15:30:30Z",
+    "groups": [
+      [
+        "Operators"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$120000$L30qBih3yebD$KbKkfhl76bRkTqkUkoWluIPXUC9BoyLlHgA3oVBQTbQ=",
+    "last_login": "2019-01-16T15:33:32.713Z",
+    "is_superuser": false,
+    "username": "Courier",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-01-16T15:31:03Z",
+    "groups": [
+      [
+        "Couriers"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 1,
+  "fields": {
+    "contact_phone": "123123123",
+    "contact_name": "Artes",
+    "delivery_address": "Azerot",
+    "status": "delivered",
+    "operator": [
+      "Alice"
+    ],
+    "courier": [
+      "John"
+    ]
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 2,
+  "fields": {
+    "contact_phone": "231231",
+    "contact_name": "Illidan",
+    "delivery_address": "Flaming Legion",
+    "status": "delivered",
+    "operator": [
+      "Alice"
+    ],
+    "courier": [
+      "John"
+    ]
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 3,
+  "fields": {
+    "contact_phone": "222",
+    "contact_name": "Kairat",
+    "delivery_address": "Abaystr",
+    "status": "delivered",
+    "operator": [
+      "Alice"
+    ],
+    "courier": [
+      "John"
+    ]
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 4,
+  "fields": {
+    "contact_phone": "123123123",
+    "contact_name": "Nurtas",
+    "delivery_address": "Astana",
+    "status": "canceled",
+    "operator": [
+      "Alice"
+    ],
+    "courier": [
+      "John"
+    ]
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 5,
+  "fields": {
+    "contact_phone": "123123123123123",
+    "contact_name": "Illidan",
+    "delivery_address": "\u0410\u0437\u0435\u0440\u043e\u0442",
+    "status": "canceled",
+    "operator": [
+      "Alice"
+    ],
+    "courier": [
+      "John"
+    ]
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 6,
+  "fields": {
+    "contact_phone": "414141",
+    "contact_name": "Sultan",
+    "delivery_address": "\u0413\u0440\u043e\u0443 \u0421\u0442\u0440\u0438\u0442",
+    "status": "on_way",
+    "operator": [
+      "Alice"
+    ],
+    "courier": [
+      "John"
+    ]
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 7,
+  "fields": {
+    "contact_phone": "565656",
+    "contact_name": "Meder",
+    "delivery_address": "\u0410\u0437\u0435\u0440\u043e\u0442",
+    "status": "delivered",
+    "operator": [
+      "Alice"
+    ],
+    "courier": [
+      "John"
+    ]
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 8,
+  "fields": {
+    "contact_phone": "2342352354",
+    "contact_name": "Illidan",
+    "delivery_address": "\u0413\u0440\u043e\u0443 \u0421\u0442\u0440\u0438\u0442",
+    "status": "delivered",
+    "operator": [
+      "Alice"
+    ],
+    "courier": [
+      "John"
+    ]
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 9,
+  "fields": {
+    "contact_phone": "453452342",
+    "contact_name": "\u0412\u0430\u0441\u044f",
+    "delivery_address": "\u043c\u043e\u0441\u0441\u043e\u0432\u0435\u0442",
+    "status": "delivered",
+    "operator": [
+      "Alice"
+    ],
+    "courier": [
+      "John"
+    ]
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 10,
+  "fields": {
+    "contact_phone": "214123123",
+    "contact_name": "Illidan",
+    "delivery_address": "\u0413\u0440\u043e\u0443 \u0421\u0442\u0440\u0438\u0442",
+    "status": "preparing",
+    "operator": [
+      "Alice"
+    ],
+    "courier": [
+      "Doe"
+    ]
+  }
+},
+{
+  "model": "webapp.order",
+  "pk": 11,
+  "fields": {
+    "contact_phone": "808080",
+    "contact_name": "The Notorious B.I.G",
+    "delivery_address": "NY",
+    "status": "delivered",
+    "operator": [
+      "Operator"
+    ],
+    "courier": [
+      "admin"
+    ]
+  }
+},
+{
+  "model": "webapp.employee",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "John"
+    ],
+    "phone": "232323"
+  }
+},
+{
+  "model": "webapp.employee",
+  "pk": 2,
+  "fields": {
+    "user": [
+      "Alice"
+    ],
+    "phone": "434343"
+  }
+},
+{
+  "model": "webapp.employee",
+  "pk": 3,
+  "fields": {
+    "user": [
+      "Doe"
+    ],
+    "phone": "99999999"
+  }
+}
+]
