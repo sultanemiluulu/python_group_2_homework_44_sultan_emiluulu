@@ -7,17 +7,26 @@
         </div>
         <div class="card-body">
             <h5 class="card-title">Order List:</h5>
-            <ul class="list-group">
+            <ul class="list-group" id="order_food_list">
                 {% for order_food in order.foods.all %}
-                    <li class="list-group-item">{{ order_food.food.name }} : {{ order_food.amount }}
+                    <li class="list-group-item" id="order_food_{{ order_food.pk }}">
+                    <span id="order_food_name_{{ order_food.pk }}"
+                          data-food_pk="{{ order_food.food.pk }}">{{ order_food.food.name }}</span> :
+                        <span id="order_food_amount_{{ order_food.pk }}">{{ order_food.amount }}</span>
                         {% if perms.webapp.add_orderfood %}
-                        <a href="{% url 'webapp:order_food_delete' order_food.pk %}">Delete
-                        Food</a> / <a href="{% url 'webapp:order_food_update' order_food.pk %}">Update
-                        Food</a></li>
+                            <a class="delete_link" href="{% url 'webapp:order_food_delete' order_food.pk %}"
+                               data-pk="{{ order_food.pk }}" data-token="{{ csrf_token }}">Delete
+                                Food</a> /
+                            <a class="edit_link" href="{% url 'webapp:order_food_update' order_food.pk %}"
+                               data-pk="{{ order_food.pk }}">Update
+                                Food</a>
                         {% endif %}
+                    </li>
                 {% endfor %}
                 {% if perms.webapp.add_orderfood %}
-                <li class="list-group-item"><a href="{% url 'webapp:order_food_create' order.pk %}">Add Food</a></li>
+                    <li class="list-group-item"><a href="{% url 'webapp:order_food_create' order.pk %}"
+                                                   id="order_food_add_link">Add Food</a>
+                    </li>
                 {% endif %}
             </ul>
             <p class="card-text mt-3">Name: {{ order.contact_name }}</p>
@@ -50,4 +59,211 @@
             {% endif %}
         </div>
     </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="food_edit_modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="food_form" action="{% url 'webapp:order_food_create' order.pk %}" method="post">
+                    <div class="text-danger" id="food_form_errors"></div>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="food_submit"></button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script type="application/javascript">
+        function onCreateSuccess(response, status) {
+
+            console.log(response);
+            console.log(status);
+
+            let newFoodLi = $('<li class="list-group-item"></li>');
+
+            let foodNameSpan = $('<span></span>')
+                .attr('id', 'order_food_name_' + response.pk)
+                .data('food_pk', response.food_pk)
+                .text(response.food_name)
+            let foodAmountSpan = $('<span></span>')
+                .attr('id', 'order_food_amount_' + response.pk)
+                .text(response.amount);
+            let deleteLink = $('<a></a>')
+                .attr('href', '#')
+                .data('pk', response.pk)
+                .text('Delete Food')
+            let editLink = $('<a></a>')
+                .addClass('edit_link')
+                .attr('href', response.edit_url)
+                .data('pk', response.pk)
+                .text('Update Food')
+                .click(onOrderFoodUpdate);
+
+
+            newFoodLi
+                .attr('id', 'order_food_' + response.pk)
+                .append(foodNameSpan)
+                .append(': ')
+                .append(foodAmountSpan)
+                .append(' ')
+                .append(deleteLink)
+                .append(' / ')
+                .append(editLink)
+
+            // добавляем новый пункт в список
+            $('#order_food_list').prepend(newFoodLi);
+
+            // выключаем модальное окно
+            $('#food_edit_modal').modal('hide');
+        }
+
+
+        function onUpdateSuccess(response, status) {
+
+            console.log(response);
+            console.log(status);
+
+            // находим нужное блюдо на странице и меняем его данные на новые, пришедшие в ответе
+            let pk = response['pk'];
+            let food_name_span = $('#order_food_name_' + pk);
+            food_name_span.text(response.food_name);
+            food_name_span.data('food_pk', response.food_pk);
+            $('#order_food_amount_' + pk).text(response.amount);
+
+            $('#food_edit_modal').modal('hide');
+        }
+
+        function onFormSubmitError(response, status) {
+
+            console.log(response);
+            console.log(status);
+
+            if (response.errors) {
+                $('#food_form_errors').text(response.errors.toString());
+            }
+        }
+
+        function onOrderFoodCreate(event) {
+            event.preventDefault();
+
+            $("#food_edit_modal .modal-title").text('Add food');
+            $("#food_submit").text('Add');
+
+            let foodForm = $('#food_form');
+            foodForm.attr('action', $(this).attr('href'));
+
+            $('#id_food').val('');
+            $('#id_amount').val('');
+
+            foodForm.off('submit');
+
+            foodForm.on('submit', function (e) {
+                e.preventDefault();
+                orderFoodFormSubmit(onCreateSuccess);
+            });
+
+            $('#food_edit_modal').modal('toggle')
+        }
+
+
+        function onOrderFoodUpdate(event) {
+            event.preventDefault();
+
+            $("#food_edit_modal .modal-title").text('Update food');
+            $("#food_submit").text('Update');
+
+            let foodForm = $('#food_form');
+            foodForm.attr('action', $(this).attr('href'));
+
+            let foodPk = $(this).data('pk');
+            let foodName = $('#order_food_name_' + foodPk);  // '#order_food_name_1'
+            let foodAmount = $('#order_food_amount_' + foodPk);  // '#order_food_amount_1'
+
+            $('#id_food').val(foodName.data('food_pk'));
+            $('#id_amount').val(foodAmount.text());
+
+            foodForm.off('submit');
+
+            foodForm.submit(function (event) {
+                event.preventDefault();
+                orderFoodFormSubmit(onUpdateSuccess);
+            });
+
+            $('#food_edit_modal').modal('toggle')
+        }
+
+
+        function onOrderFoodDelete(e) {
+            e.preventDefault();
+            let url = $(this).attr('href');
+            let foodPk = $(this).data('pk');
+            let token = $(this).data('token');
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    foodPk: foodPk,
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", token)
+                },
+                success: function (json) {
+                    $('#order_food_' + foodPk).remove()
+                },
+                error: function (response, status) {
+                    console.log(response);
+                    console.log(status);
+                }
+            })
+
+        }
+
+
+        function orderFoodFormSubmit(success) {
+            let url = $('#food_form').attr('action');
+
+            let data = {
+                food: $('#id_food').val(),
+                amount: $('#id_amount').val(),
+                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+            };
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: data,
+                success: success,
+                error: onFormSubmitError
+            });
+        }
+
+        window.addEventListener('load', function () {
+            // назначаем действие на нажатие кнопки "Добавить" в модалке.
+            // кнопка не находится внутри формы, поэтому её требуется настроить здесь.
+            $('#food_submit').on('click', function (e) {
+                // отправляем форму
+                $('#food_form').submit();
+            });
+
+            // настраиваем создание блюд по клику на ссылку "Добавить"
+            $('#order_food_add_link').click(onOrderFoodCreate);
+
+            // настраиваем изменение блюд по клику на ссылки "Изменить"
+            $('#order_food_list  .edit_link').click(onOrderFoodUpdate);
+            $('#order_food_list .delete_link').click(onOrderFoodDelete);
+        });
+    </script>
 {% endblock %}
